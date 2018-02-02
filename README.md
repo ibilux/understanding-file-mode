@@ -1,3 +1,4 @@
+# Understanding and decoding the file mode value from stat function output
 
 The mode from your question corresponds to a regular file with 644 permissions (read-write for the owner and read-only for everyone else), but don’t take my word for it.
 
@@ -19,7 +20,7 @@ Bitwise AND with 07777 gives the last twelve bits of a number’s binary represe
     644
 
 A nicer way to do this is below. Read on for all the details.
-#Mode Bits
+# Mode Bits
 
 The third element returned from stat (which corresponds to st_mode in struct stat) is a bit field where the different bit positions are binary flags.
 
@@ -88,7 +89,7 @@ On Red Hat Enterprise Linux and other operating systems in the System V family, 
     S_IWOTH    -         2
     S_IXOTH    -         1
 
-#Bit twiddling
+# Bit twiddling
 
 The numbers above are octal (base 8), so any given digit must be 0-7 and has place value 8n, where n is the zero-based number of places to the left of the radix point. To see how they map to bits, octal has the convenient property that each digit corresponds to three bits. Four, two, and 1 are all exact powers of two, so in binary, they are 100, 10, and 1 respectively. Seven (= 4 + 2 + 1) in binary is 111, so then 708 is 1110002. The latter example shows how converting back and forth is straightforward.
 
@@ -118,7 +119,7 @@ For completeness, set a bit with bitwise OR as in
 
     $bits |= $mask;
 
-#Octal and file permissions
+# Octal and file permissions
 
 An octal digit’s direct mapping to three bits is convenient for Unix permissions because they come in groups of three. For example, the permissions for the program that produced the output above are
 
@@ -160,7 +161,7 @@ The loop also clears the bits from all detected hits so at the end we can check 
 
 No extra warning, so we got everything.
 
-#That magic 07777
+# That magic 07777
 
 Converting 77778 to binary gives 0b111_111_111_111. Recall that 78 is 1112, and four 7s correspond to 4×3 ones. This mask is useful for selecting the set bits in the last twelve. Looking back at the bit masks we generated earlier
 
