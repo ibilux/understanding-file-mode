@@ -118,7 +118,7 @@ For completeness, set a bit with bitwise OR as in
 
     $bits |= $mask;
 
-Octal and file permissions
+#Octal and file permissions
 
 An octal digit’s direct mapping to three bits is convenient for Unix permissions because they come in groups of three. For example, the permissions for the program that produced the output above are
 
@@ -151,15 +151,16 @@ The mode test has to be more careful because some of the masks are shorthand for
 
 The loop also clears the bits from all detected hits so at the end we can check that we have accounted for each bit. The output is
 
-Bits set in mode 33188:
-    - S_IFREG
-    - S_IRUSR
-    - S_IWUSR
-    - S_IRGRP
-    - S_IROTH
+    Bits set in mode 33188:
+        - S_IFREG
+        - S_IRUSR
+        - S_IWUSR
+        - S_IRGRP
+        - S_IROTH
 
 No extra warning, so we got everything.
-That magic 07777
+
+#That magic 07777
 
 Converting 77778 to binary gives 0b111_111_111_111. Recall that 78 is 1112, and four 7s correspond to 4×3 ones. This mask is useful for selecting the set bits in the last twelve. Looking back at the bit masks we generated earlier
 
